@@ -48,7 +48,6 @@ public class MainForm extends javax.swing.JFrame {
         jLabel3.setBackground(new java.awt.Color(0, 102, 153));
         jLabel3.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(204, 204, 204));
-        jLabel3.setIcon(new javax.swing.ImageIcon("C:\\Users\\ExpectedSemicolon\\Documents\\NetBeansProjects\\Flight\\image\\search.png")); // NOI18N
         jLabel3.setText("   Tra cứu");
         jLabel3.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jLabel3.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -77,7 +76,6 @@ public class MainForm extends javax.swing.JFrame {
         jLabel5.setBackground(new java.awt.Color(0, 102, 153));
         jLabel5.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(204, 204, 204));
-        jLabel5.setIcon(new javax.swing.ImageIcon("C:\\Users\\ExpectedSemicolon\\Documents\\NetBeansProjects\\Flight\\image\\ticket.png")); // NOI18N
         jLabel5.setText("   Bán vé");
         jLabel5.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jLabel5.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -96,7 +94,6 @@ public class MainForm extends javax.swing.JFrame {
         jLabel9.setBackground(new java.awt.Color(0, 102, 153));
         jLabel9.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel9.setForeground(new java.awt.Color(204, 204, 204));
-        jLabel9.setIcon(new javax.swing.ImageIcon("C:\\Users\\ExpectedSemicolon\\Documents\\NetBeansProjects\\Flight\\image\\static.png")); // NOI18N
         jLabel9.setText("   Thống kê");
         jLabel9.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jLabel9.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -146,8 +143,6 @@ public class MainForm extends javax.swing.JFrame {
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
         jPanel2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
-        jLabel8.setIcon(new javax.swing.ImageIcon("C:\\Users\\ExpectedSemicolon\\Documents\\NetBeansProjects\\Flight\\image\\flight nho.png")); // NOI18N
-
         jLabel1.setOpaque(true);
         jLabel1.setBackground(new java.awt.Color(1, 156, 225));
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
@@ -155,8 +150,6 @@ public class MainForm extends javax.swing.JFrame {
         jLabel1.setText("         Màn hình chính");
         jLabel1.setToolTipText("");
         jLabel1.setAlignmentX(10.0F);
-
-        jLabel2.setIcon(new javax.swing.ImageIcon("C:\\Users\\ExpectedSemicolon\\Documents\\NetBeansProjects\\Flight\\image\\f.png")); // NOI18N
 
         org.jdesktop.layout.GroupLayout jPanel2Layout = new org.jdesktop.layout.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
