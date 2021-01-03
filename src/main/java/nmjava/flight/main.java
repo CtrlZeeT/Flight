@@ -15,6 +15,5 @@ public class main {
     public static void main(String args[]) {
         MainForm f = new MainForm();
         f.setVisible(true);
-        
     }
 }
