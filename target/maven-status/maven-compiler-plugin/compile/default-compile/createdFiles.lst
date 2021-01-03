@@ -1,8 +1,13 @@
 nmjava\flight\MainForm$1.class
+nmjava\flight\DAL\ConnectSQLServer.class
+nmjava\flight\BLL\VeChuyenBayBLL.class
+nmjava\flight\DAL\VeChuyenBayDAL.class
+nmjava\flight\DTO\VeChuyenBay.class
+nmjava\flight\MonthReportPanel.class
+nmjava\flight\MainForm$2.class
+YearReportPanel.class
 nmjava\flight\MainForm$5.class
-nmjava\flight\ReportPanel.class
 nmjava\flight\MainForm$3.class
 nmjava\flight\SearchPanel.class
 nmjava\flight\MainForm.class
-nmjava\flight\MainForm$2.class
 nmjava\flight\MainForm$4.class

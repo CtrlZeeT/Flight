@@ -5,17 +5,21 @@
  */
 package nmjava.flight;
 
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author Cuong
  */
-public class ReportPanel extends javax.swing.JPanel {
+public class MonthReportPanel extends javax.swing.JPanel {
 
     /**
      * Creates new form ReportPanel
      */
-    public ReportPanel() {
+    public MonthReportPanel() {
         initComponents();
+        DefaultTableModel model = (DefaultTableModel) tableMonth.getModel();
+        model.addRow(new Object[] {"9", "asds", "saddd"});
     }
 
     /**
@@ -42,7 +46,7 @@ public class ReportPanel extends javax.swing.JPanel {
         cbThang = new javax.swing.JComboBox<>();
         cbNam = new javax.swing.JComboBox<>();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tableMonth = new javax.swing.JTable();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setPreferredSize(new java.awt.Dimension(741, 540));
@@ -100,18 +104,15 @@ public class ReportPanel extends javax.swing.JPanel {
 
         cbNam.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tableMonth.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "Tháng", "Doanh Thu (VND)", "Tiền Lãi"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(tableMonth);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -151,9 +152,7 @@ public class ReportPanel extends javax.swing.JPanel {
                         .addGap(36, 36, 36)
                         .addComponent(btnThongKe, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(102, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 638, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(jScrollPane1)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -200,10 +199,10 @@ public class ReportPanel extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
     private javax.swing.JLabel lblThang;
     private javax.swing.JLabel lblTongDoanhThu;
     private javax.swing.JLabel lblTongSoVe;
     private javax.swing.JLabel lblTongTienLai;
+    private javax.swing.JTable tableMonth;
     // End of variables declaration//GEN-END:variables
 }

@@ -13,7 +13,7 @@ public class MainForm extends javax.swing.JFrame {
     /** Creates new form MainForm */
     public MainForm() {
         initComponents();
-        ReportPanel rp = new ReportPanel();
+        MonthReportPanel rp = new MonthReportPanel();
         rp.setBounds(0, 0, jPanel3.getWidth(), jPanel3.getHeight());
         jPanel3.add(rp);
         
