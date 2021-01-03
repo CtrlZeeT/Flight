@@ -51,11 +51,6 @@ public class MainForm extends javax.swing.JFrame {
         jLabel3.setIcon(new javax.swing.ImageIcon("C:\\Users\\ExpectedSemicolon\\Documents\\NetBeansProjects\\Flight\\image\\search.png")); // NOI18N
         jLabel3.setText("   Tra cứu");
         jLabel3.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        jLabel3.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
-            public void mouseDragged(java.awt.event.MouseEvent evt) {
-                jLab(evt);
-            }
-        });
         jLabel3.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 jLabel3FocusGained(evt);
@@ -257,10 +252,6 @@ public class MainForm extends javax.swing.JFrame {
     private void jLabel3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel3MouseClicked
         jLabel4.setOpaque(true);
     }//GEN-LAST:event_jLabel3MouseClicked
-
-    private void jLab(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLab
-        jLabel4.setOpaque(true);
-    }//GEN-LAST:event_jLab
 
     /**
      * @param args the command line arguments
