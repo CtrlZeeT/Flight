@@ -30,7 +30,8 @@ public class SearchPanel extends javax.swing.JPanel {
 
     ArrayList<ChuyenBay> list = new ArrayList<ChuyenBay>();
     HashMap<String, String> city = new HashMap<String, String>();
-
+    public ChuyenBay TraThongTinChuyenBay = new ChuyenBay();
+    
     public SearchPanel(){
 
         city.put("Đắk Lắk", "BMV");

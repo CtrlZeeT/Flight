@@ -12,6 +12,8 @@ public class ChuyenBay {
     String SanBayDen;
     String ThoiGianDen;
     String GiaTien;
+    String NgayDi;
+    String NgayDen;
 
     public String getTenHangHangKhong() {
         return TenHangHangKhong;
