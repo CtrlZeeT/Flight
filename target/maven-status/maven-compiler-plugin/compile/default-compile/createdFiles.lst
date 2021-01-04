@@ -1,10 +1,5 @@
-nmjava\flight\MainForm$1.class
-nmjava\flight\MainForm$5.class
-nmjava\flight\MainForm$3.class
-nmjava\flight\SearchPanel$1.class
-nmjava\flight\SearchPanel.class
-nmjava\flight\ChuyenBay.class
-nmjava\flight\MainForm.class
-nmjava\flight\SearchPanel$2.class
-nmjava\flight\MainForm$2.class
-nmjava\flight\MainForm$4.class
+nmjava\flight\DTO\HoaDon.class
+nmjava\flight\ReportPanel.class
+nmjava\flight\BLL\HoaDonBLL.class
+nmjava\flight\DAL\HoaDonDAL.class
+nmjava\flight\ReportPanel$1.class

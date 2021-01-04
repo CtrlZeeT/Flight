@@ -1,3 +1,11 @@
 D:\Nam3_Ki1\Java\Flight\src\main\java\nmjava\flight\ChuyenBay.java
-D:\Nam3_Ki1\Java\Flight\src\main\java\nmjava\flight\MainForm.java
+D:\Nam3_Ki1\Java\Flight\src\main\java\nmjava\flight\BLL\HoaDonBLL.java
+D:\Nam3_Ki1\Java\Flight\src\main\java\nmjava\flight\ReportPanel.java
+D:\Nam3_Ki1\Java\Flight\src\main\java\nmjava\flight\DAL\HoaDonDAL.java
+D:\Nam3_Ki1\Java\Flight\src\main\java\nmjava\flight\BLL\VeChuyenBayBLL.java
+D:\Nam3_Ki1\Java\Flight\src\main\java\nmjava\flight\DAL\ConnectSQLServer.java
+D:\Nam3_Ki1\Java\Flight\src\main\java\nmjava\flight\MainFrame.java
+D:\Nam3_Ki1\Java\Flight\src\main\java\nmjava\flight\DTO\VeChuyenBay.java
+D:\Nam3_Ki1\Java\Flight\src\main\java\nmjava\flight\DAL\VeChuyenBayDAL.java
 D:\Nam3_Ki1\Java\Flight\src\main\java\nmjava\flight\SearchPanel.java
+D:\Nam3_Ki1\Java\Flight\src\main\java\nmjava\flight\DTO\HoaDon.java
