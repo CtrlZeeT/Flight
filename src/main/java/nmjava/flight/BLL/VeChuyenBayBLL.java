@@ -14,8 +14,11 @@ import nmjava.flight.DAL.VeChuyenBayDAL;
 public class VeChuyenBayBLL {
     VeChuyenBayDAL dalVCB;
     
-    public void VeChuyenBayBLL(){
+    public VeChuyenBayBLL(){
         dalVCB = new VeChuyenBayDAL();
+    }
+    public void getAllData() {
+        dalVCB.getALLDaTa();
     }
    
 }

@@ -5,7 +5,10 @@
  */
 package nmjava.flight;
 
+import java.util.ArrayList;
 import javax.swing.table.DefaultTableModel;
+import nmjava.flight.BLL.HoaDonBLL;
+import nmjava.flight.DTO.HoaDon;
 
 /**
  *
@@ -18,8 +21,7 @@ public class MonthReportPanel extends javax.swing.JPanel {
      */
     public MonthReportPanel() {
         initComponents();
-        DefaultTableModel model = (DefaultTableModel) tableMonth.getModel();
-        model.addRow(new Object[] {"9", "asds", "saddd"});
+
     }
 
     /**
@@ -99,17 +101,22 @@ public class MonthReportPanel extends javax.swing.JPanel {
         jLabel7.setText("Tháng:");
 
         btnThongKe.setText("Thống kê");
+        btnThongKe.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnThongKeActionPerformed(evt);
+            }
+        });
 
-        cbThang.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cbThang.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12" }));
 
-        cbNam.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cbNam.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "2018", "2019", "2020", "2021" }));
 
         tableMonth.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "Tháng", "Doanh Thu (VND)", "Tiền Lãi"
+                "Mã Hoá Đơn", "Số Vé", "Doanh Thu (VND)", "Tiền Lãi (VND)", "Ngày Lập Hoá Đơn"
             }
         ));
         jScrollPane1.setViewportView(tableMonth);
@@ -185,6 +192,28 @@ public class MonthReportPanel extends javax.swing.JPanel {
 
         lblTongDoanhThu.getAccessibleContext().setAccessibleName("lblTongSoVe");
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnThongKeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThongKeActionPerformed
+        String month = cbThang.getSelectedItem().toString();
+        String year = cbNam.getSelectedItem().toString();
+        lblThang.setText(month + "/" + year);
+       
+        HoaDonBLL bllHoaDon = new HoaDonBLL();
+        ArrayList<HoaDon> list = bllHoaDon.getHoaDonWithMonthAndYear(month, year);
+        DefaultTableModel model = (DefaultTableModel) tableMonth.getModel();
+        for (int i = 0; i < model.getRowCount(); i++)
+            model.removeRow(0);
+        int TongSoVe = 0;
+        double TongDoanhThu = 0;
+        for (HoaDon item : list) {
+            TongSoVe += item.getSoVe();
+            TongDoanhThu += item.getTongTien();
+            model.addRow(new Object[] {item.getMaHoaDon(), item.getSoVe(), item.getTongTien(), item.getTienLai(), item.getThoiGianTao().toString()});
+        }
+        lblTongSoVe.setText(String.valueOf(TongSoVe));
+        lblTongDoanhThu.setText(String.valueOf(TongDoanhThu));
+        
+    }//GEN-LAST:event_btnThongKeActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
