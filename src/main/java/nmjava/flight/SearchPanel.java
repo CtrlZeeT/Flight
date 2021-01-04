@@ -5,19 +5,89 @@
  */
 package nmjava.flight;
 
+import javax.swing.table.DefaultTableModel;
+import java.io.IOException;
+import java.util.ArrayList;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.select.Elements;
+import com.gargoylesoftware.htmlunit.BrowserVersion;
+import com.gargoylesoftware.htmlunit.WebClient;
+import com.gargoylesoftware.htmlunit.html.HtmlPage;
+import java.awt.Button;
+import java.awt.Color;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import java.util.Calendar;
+
 /**
  *
  * @author ExpectedSemicolon
  */
 public class SearchPanel extends javax.swing.JPanel {
-
-    /**
-     * Creates new form SearchPanel
-     */
-    public SearchPanel() {
+    
+    ArrayList<ChuyenBay> list = new ArrayList<ChuyenBay>();
+    HashMap<String, String> city = new HashMap<String, String>();
+    public SearchPanel() throws IOException {
+        
+        city.put("Đắk Lắk","BMV");
+        city.put("Cà Mau","CAH");
+        city.put("Khánh Hòa","CXR");
+        city.put("Đắk Lắk","BMV");
+        city.put("Đà Nẵng","DAD");
+        city.put("Điện Biên","DIN");
+        city.put("Lâm Đồng","DLI");
+        city.put("Hà Nội","HAN");
+        city.put("Hải Phòng","HPH");
+        city.put("Thừa Thiên – Huế","HUI");
+        city.put("Kiên Giang","PQC");
+        city.put("Gia Lai","PXU");
+        city.put("Hồ Chí Minh","SGN");
+        city.put("Sơn La","SQH");
+        city.put("Phú Yên","TBB");
+        city.put("Thanh Hóa","THD");
+        city.put("Bình Định","UIH");
+        city.put("Cần Thơ","VCA");
+        city.put("Quảng Nam","VCL");
+        city.put("Bà Rịa - Vũng Tàu","VCS");
+        city.put("Quảng Bình","VDH");
+        city.put("Quảng Ninh","VDO");
+        city.put("Nghệ An","VII");
+        city.put("Kiên Giang","VKG");
+        
+        
         initComponents();
     }
+    public void SearchFlight(String url) throws IOException {
+        list.clear();
+        try (final WebClient webClient = new WebClient(BrowserVersion.CHROME) {}) {
+            HtmlPage page = webClient.getPage(url);
+            webClient.waitForBackgroundJavaScript(5000);
+            Document doc = Jsoup.parse(page.asXml());
+            Elements elements = doc.select("div[class=dtc-flight-item]");
+            try {
+                for (int i = 0; i < elements.size(); i++) {
+                    ChuyenBay chuyenbay = new ChuyenBay();
+                    if(elements.get(i).select("p").get(0).text().contains("Pacific"))
+                        chuyenbay.setTenHangHangKhong("Pacific Airline");
+                     else
+                    chuyenbay.setTenHangHangKhong(elements.get(i).select("p").get(0).text());
+                    chuyenbay.setSanBayDi(elements.get(i).select("div[class=dtc-flight-city]").get(0).text());
+                    chuyenbay.setThoiGianDi(elements.get(i).select("div[class=dtc-flight-time]").get(0).text());
+                    chuyenbay.setMaChuyenBay(elements.get(i).select("div[class=dtc-flight-numb dtc-color-text]").get(0).text());
+                    chuyenbay.setSanBayDen(elements.get(i).select("div[class=dtc-flight-city]").get(1).text());
+                    chuyenbay.setThoiGianDen(elements.get(i).select("div[class=dtc-flight-time]").get(1).text());
+                    chuyenbay.setGiaTien(elements.get(i).select("div[class=dtc-flight-price]").get(0).text());
+                    list.add(chuyenbay);
+                }
 
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -31,15 +101,16 @@ public class SearchPanel extends javax.swing.JPanel {
         jLabel2 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
-        jCalendar1 = new com.toedter.calendar.JCalendar();
+        ChonNgayBay = new com.toedter.calendar.JCalendar();
         jLabel4 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        cbSanBayDi = new javax.swing.JComboBox<>();
         jLabel5 = new javax.swing.JLabel();
-        jComboBox2 = new javax.swing.JComboBox<>();
-        jComboBox3 = new javax.swing.JComboBox<>();
+        cbSanBayDen = new javax.swing.JComboBox<>();
+        cbHangBay = new javax.swing.JComboBox<>();
         jLabel6 = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
-        jComboBox4 = new javax.swing.JComboBox<>();
+        javax.swing.JButton btnTimKiem = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        ThongTinCacChuyenBay = new javax.swing.JTable();
 
         setPreferredSize(new java.awt.Dimension(741, 540));
 
@@ -63,40 +134,48 @@ public class SearchPanel extends javax.swing.JPanel {
         jLabel4.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel4.setText("Sân bay đi:");
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cbSanBayDi.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Đắk Lắk", "Cà Mau", "Khánh Hòa", "Đà Nẵng", "Điện Biên", "Lâm Đồng", "Hà Nội", "Hải Phòng", "Thừa Thiên – Huế", "Kiên Giang", "Gia Lai", "Hồ Chí Minh", "Sơn La", "Phú Yên", "Thanh Hóa", "Bình Định", "Cần Thơ", "Quảng Nam", "Bà Rịa - Vũng Tàu", "Quảng Bình", "Quảng Ninh", "Nghệ An", "Kiên Giang" }));
+        cbSanBayDi.setSelectedIndex(11);
 
         jLabel5.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel5.setText("Sân bay đến:");
 
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cbSanBayDen.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Đắk Lắk", "Cà Mau", "Khánh Hòa", "Đà Nẵng", "Điện Biên", "Lâm Đồng", "Hà Nội", "Hải Phòng", "Thừa Thiên – Huế", "Kiên Giang", "Gia Lai", "Hồ Chí Minh", "Sơn La", "Phú Yên", "Thanh Hóa", "Bình Định", "Cần Thơ", "Quảng Nam", "Bà Rịa - Vũng Tàu", "Quảng Bình", "Quảng Ninh", "Nghệ An", "Kiên Giang" }));
+        cbSanBayDen.setSelectedIndex(3);
 
-        jComboBox3.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cbHangBay.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tất cả các hãng", "Vietnam Airlines", "VietJet Air", "Bamboo Airways", "Pacific Airlines" }));
 
         jLabel6.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel6.setText("Hãng bay");
 
-        jLabel7.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jLabel7.setText("Hạng vé:");
-
-        jComboBox4.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        btnTimKiem.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        btnTimKiem.setText("TÌM KIẾM");
+        btnTimKiem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnTimKiemActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(jComboBox1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jCalendar1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jComboBox2, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jComboBox3, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel7, javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jComboBox4, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(cbSanBayDi, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(ChonNgayBay, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(cbSanBayDen, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(cbHangBay, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.LEADING)))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(58, 58, 58)
+                        .addComponent(btnTimKiem)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -105,25 +184,55 @@ public class SearchPanel extends javax.swing.JPanel {
                 .addContainerGap()
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jCalendar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(ChonNgayBay, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(cbSanBayDi, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel5)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(cbSanBayDen, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel6)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jComboBox3, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(cbHangBay, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jLabel7)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jComboBox4, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(30, Short.MAX_VALUE))
+                .addComponent(btnTimKiem)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
+
+        cbSanBayDi.getAccessibleContext().setAccessibleName("");
+        cbSanBayDi.getAccessibleContext().setAccessibleDescription("");
+
+        ThongTinCacChuyenBay.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Hãng bay", "Mã chuyến bay", "Giờ cất cánh", "Giờ hạ cánh", "Giá tiền", ""
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Object.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, true
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        ThongTinCacChuyenBay.setCellSelectionEnabled(true);
+        ThongTinCacChuyenBay.setDropMode(javax.swing.DropMode.INSERT_ROWS);
+        ThongTinCacChuyenBay.setName(""); // NOI18N
+        jScrollPane1.setViewportView(ThongTinCacChuyenBay);
+        ThongTinCacChuyenBay.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_INTERVAL_SELECTION);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -133,8 +242,14 @@ public class SearchPanel extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 237, Short.MAX_VALUE)
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 504, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 504, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addComponent(jScrollPane1)))
+                .addGap(0, 0, 0))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -142,24 +257,71 @@ public class SearchPanel extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 462, Short.MAX_VALUE)
+                        .addContainerGap())))
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btnTimKiemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTimKiemActionPerformed
+
+         String MaNoiDi=city.get(cbSanBayDi.getSelectedItem().toString());
+         String MaNoiDen=city.get(cbSanBayDen.getSelectedItem().toString());
+         Calendar c = ChonNgayBay.getCalendar();
+         int Ngay=c.get(Calendar.DATE);
+         int Thang=c.get(Calendar.MONTH)+1;
+         int Nam=c.get(Calendar.YEAR);
+         String d,m,y;
+         if(Ngay<10) 
+             d="0"+String.valueOf(Ngay);
+         else
+             d=String.valueOf(Ngay);
+         if(Thang<10) 
+             m="0"+String.valueOf(Thang);
+         else
+             m=String.valueOf(Thang);
+         y=String.valueOf(Nam);    
+        String[] MaHang={"VN,VJ,QH","VN","VJ","QH","VN"};
+        String url="https://demo.datacom.vn/flight?Request="+MaNoiDi+MaNoiDen+d+m+y+"-1-0-0&Airline="+MaHang[cbHangBay.getSelectedIndex()];
+        DefaultTableModel model = (DefaultTableModel) ThongTinCacChuyenBay.getModel();
+        for(int i=0;i<list.size();i++)
+        {
+            model.removeRow(0);
+        }
+        list.clear();
+        System.out.println(url);
+        try {
+            SearchFlight(url);
+        } catch (IOException ex) {
+            Logger.getLogger(SearchPanel.class.getName()).log(Level.SEVERE, null, ex);
+        }
+         for(int i=0;i<list.size();i++)
+         {
+            Button bt = new Button();
+            bt.setSize(WIDTH, HEIGHT);
+            bt.setBackground(Color.red);
+            Object[] row = { list.get(i).getTenHangHangKhong(), list.get(i).getMaChuyenBay(), list.get(i).getThoiGianDi(), list.get(i).getThoiGianDen(), list.get(i).getGiaTien(), bt}; 
+            model.addRow(row);
+         }
+    }//GEN-LAST:event_btnTimKiemActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private com.toedter.calendar.JCalendar jCalendar1;
-    private javax.swing.JComboBox<String> jComboBox1;
-    private javax.swing.JComboBox<String> jComboBox2;
-    private javax.swing.JComboBox<String> jComboBox3;
-    private javax.swing.JComboBox<String> jComboBox4;
+    private com.toedter.calendar.JCalendar ChonNgayBay;
+    private javax.swing.JTable ThongTinCacChuyenBay;
+    private javax.swing.JComboBox<String> cbHangBay;
+    private javax.swing.JComboBox<String> cbSanBayDen;
+    private javax.swing.JComboBox<String> cbSanBayDi;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration//GEN-END:variables
 }
