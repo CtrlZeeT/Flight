@@ -1,11 +1,10 @@
-E:\Java\Flight\src\main\java\nmjava\flight\MonthReportPanel.java
 E:\Java\Flight\src\main\java\nmjava\flight\BLL\HoaDonBLL.java
 E:\Java\Flight\src\main\java\nmjava\flight\MainFrame.java
 E:\Java\Flight\src\main\java\nmjava\flight\DTO\VeChuyenBay.java
 E:\Java\Flight\src\main\java\nmjava\flight\DTO\HoaDon.java
 E:\Java\Flight\src\main\java\nmjava\flight\DAL\VeChuyenBayDAL.java
-E:\Java\Flight\src\main\java\nmjava\flight\YearReportPanel.java
 E:\Java\Flight\src\main\java\nmjava\flight\BLL\VeChuyenBayBLL.java
 E:\Java\Flight\src\main\java\nmjava\flight\DAL\ConnectSQLServer.java
 E:\Java\Flight\src\main\java\nmjava\flight\SearchPanel.java
+E:\Java\Flight\src\main\java\nmjava\flight\ReportPanel.java
 E:\Java\Flight\src\main\java\nmjava\flight\DAL\HoaDonDAL.java
