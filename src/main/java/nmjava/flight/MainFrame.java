@@ -479,6 +479,7 @@ public class MainFrame extends javax.swing.JFrame {
             case REGULATE:
                 lbContent.setText("Quy định chung");
                 pnSelectRegulate.setBackground(lbContent.getBackground());
+                currentPanel = new RegulationPanel();
                 break;
         }
 

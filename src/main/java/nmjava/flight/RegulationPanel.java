@@ -196,7 +196,7 @@ public class RegulationPanel extends javax.swing.JPanel {
     private void jButton_LuuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_LuuActionPerformed
         // TODO add your handling code here:
         // Kiểm tra số
-        String patternStr = "[^123456789]";
+        String patternStr = ".*[^0-9].*"; // tìm ký tự khác số trong String
         Pattern p = Pattern.compile(patternStr);
         Matcher m1 = p.matcher(jTextField1.getText());
         Matcher m2 = p.matcher(jTextField2.getText());
