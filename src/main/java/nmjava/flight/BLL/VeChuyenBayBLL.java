@@ -5,7 +5,9 @@
  */
 package nmjava.flight.BLL;
 
+import java.util.ArrayList;
 import nmjava.flight.DAL.VeChuyenBayDAL;
+import nmjava.flight.DTO.VeChuyenBay;
 
 /**
  *
@@ -20,5 +22,11 @@ public class VeChuyenBayBLL {
     public void getAllData() {
         dalVCB.getALLDaTa();
     }
-   
+    public boolean InsertVeChuyenBay(VeChuyenBay vcb)
+    {
+        return dalVCB.insertVeChuyenBay(vcb);
+    }
+    public ArrayList<Object [] > getVeChuyenBay() {
+        return dalVCB.getVeChuyenBay();
+    }
 }
