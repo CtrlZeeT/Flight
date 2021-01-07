@@ -5,46 +5,45 @@
  */
 package nmjava.flight;
 
-import javax.swing.table.DefaultTableModel;
-import java.io.IOException;
-import java.util.ArrayList;
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
-import org.jsoup.select.Elements;
 import com.gargoylesoftware.htmlunit.BrowserVersion;
 import com.gargoylesoftware.htmlunit.WebClient;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
-import java.awt.Button;
-import java.awt.Color;
 import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.Date;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import java.util.Calendar;
 import javax.swing.DefaultCellEditor;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
-import javax.swing.JOptionPane;
-import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.UIManager;
+import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
-import javax.swing.table.TableColumn;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.select.Elements;
 
 /**
  *
- * @author ExpectedSemicolon
+ * @author xuanluan
  */
-public class SearchPanel extends javax.swing.JPanel {
+public class SearchFlightPanel extends javax.swing.JPanel {
 
     ArrayList<ChuyenBay> list = new ArrayList<ChuyenBay>();
     HashMap<String, String> city = new HashMap<String, String>();
+    public ChuyenBay TraThongTinChuyenBay = new ChuyenBay();
+    Thread thread;
 
-    public SearchPanel() {
-
+    /**
+     * Creates new form SearchFlightPanel
+     */
+    public SearchFlightPanel() {
         city.put("Đắk Lắk", "BMV");
         city.put("Cà Mau", "CAH");
         city.put("Khánh Hòa", "CXR");
@@ -71,7 +70,7 @@ public class SearchPanel extends javax.swing.JPanel {
         city.put("Kiên Giang", "VKG");
 
         initComponents();
-
+        stopProcess();
         ThongTinCacChuyenBay.getColumn(ThongTinCacChuyenBay.getColumnName(5)).setCellRenderer(new ButtonRenderer());
         ThongTinCacChuyenBay.getColumn(ThongTinCacChuyenBay.getColumnName(5)).setCellEditor(new ButtonEditor(new JCheckBox()));
 
@@ -142,7 +141,15 @@ public class SearchPanel extends javax.swing.JPanel {
         @Override
         public Object getCellEditorValue() {
             if (isPushed) {
-                JOptionPane.showMessageDialog(button, index);
+                TraThongTinChuyenBay.TenHangHangKhong = ThongTinCacChuyenBay.getValueAt(index, 0).toString();
+                TraThongTinChuyenBay.MaChuyenBay = ThongTinCacChuyenBay.getValueAt(index, 1).toString();
+                TraThongTinChuyenBay.ThoiGianDi = ThongTinCacChuyenBay.getValueAt(index, 2).toString();
+                TraThongTinChuyenBay.ThoiGianDen = ThongTinCacChuyenBay.getValueAt(index, 3).toString();
+                TraThongTinChuyenBay.GiaTien = ThongTinCacChuyenBay.getValueAt(index, 4).toString();
+                TraThongTinChuyenBay.SanBayDi = cbSanBayDi.getSelectedItem().toString();
+                TraThongTinChuyenBay.SanBayDen = cbSanBayDen.getSelectedItem().toString();
+                SellTicketPanel.book.setCb(TraThongTinChuyenBay);
+                SellTicketPanel.tab.setSelectedIndex(1);
             }
             isPushed = false;
             return label;
@@ -186,6 +193,18 @@ public class SearchPanel extends javax.swing.JPanel {
         }
     }
 
+    public void startProcess() {
+        pbProcess.setVisible(true);
+        btnCancel.setVisible(true);
+        btnSearch.setEnabled(false);
+    }
+
+    public void stopProcess() {
+        pbProcess.setVisible(false);
+        btnCancel.setVisible(false);
+        btnSearch.setEnabled(true);
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -195,9 +214,8 @@ public class SearchPanel extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        jPanel1 = new javax.swing.JPanel();
+        jPanel5 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         ChonNgayBay = new com.toedter.calendar.JCalendar();
         jLabel4 = new javax.swing.JLabel();
@@ -206,18 +224,13 @@ public class SearchPanel extends javax.swing.JPanel {
         cbSanBayDen = new javax.swing.JComboBox<>();
         cbHangBay = new javax.swing.JComboBox<>();
         jLabel6 = new javax.swing.JLabel();
-        javax.swing.JButton btnTimKiem = new javax.swing.JButton();
+        btnSearch = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         ThongTinCacChuyenBay = new javax.swing.JTable();
-
-        setPreferredSize(new java.awt.Dimension(741, 540));
-
-        jLabel1.setBackground(new java.awt.Color(111, 131, 149));
-        jLabel1.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("Tiêu chuẩn tra cứu");
-        jLabel1.setOpaque(true);
+        JPanel6 = new javax.swing.JPanel();
+        pbProcess = new javax.swing.JProgressBar();
+        btnCancel = new javax.swing.JButton();
 
         jLabel2.setBackground(new java.awt.Color(99, 117, 131));
         jLabel2.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
@@ -226,7 +239,8 @@ public class SearchPanel extends javax.swing.JPanel {
         jLabel2.setText("Danh sách chuyến bay");
         jLabel2.setOpaque(true);
 
-        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel5.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel5.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel3.setText("Ngày khởi hành:");
@@ -251,21 +265,28 @@ public class SearchPanel extends javax.swing.JPanel {
         jLabel6.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
         jLabel6.setText("Hãng bay");
 
-        btnTimKiem.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
-        btnTimKiem.setText("TÌM KIẾM");
-        btnTimKiem.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnTimKiemActionPerformed(evt);
+        btnSearch.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
+        btnSearch.setText("TÌM KIẾM");
+        btnSearch.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnSearchMouseClicked(evt);
             }
         });
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+        jLabel1.setBackground(new java.awt.Color(111, 131, 149));
+        jLabel1.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel1.setText("Tiêu chuẩn tra cứu");
+        jLabel1.setOpaque(true);
+
+        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
+        jPanel5.setLayout(jPanel5Layout);
+        jPanel5Layout.setHorizontalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel5Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(ChonNgayBay, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jLabel3)
                     .addComponent(jLabel4)
@@ -275,15 +296,17 @@ public class SearchPanel extends javax.swing.JPanel {
                     .addComponent(cbSanBayDi, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(cbHangBay, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(jPanel1Layout.createSequentialGroup()
+            .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnTimKiem, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
+        jPanel5Layout.setVerticalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(24, 24, 24)
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(ChonNgayBay, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -299,14 +322,14 @@ public class SearchPanel extends javax.swing.JPanel {
                 .addComponent(jLabel6)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(cbHangBay, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(31, 31, 31)
-                .addComponent(btnTimKiem)
-                .addContainerGap(54, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(btnSearch)
+                .addGap(68, 68, 68))
         );
 
-        cbSanBayDi.getAccessibleContext().setAccessibleName("");
-        cbSanBayDi.getAccessibleContext().setAccessibleDescription("");
+        btnSearch.getAccessibleContext().setAccessibleName("");
 
+        ThongTinCacChuyenBay.setFont(new java.awt.Font("Dialog", 0, 10)); // NOI18N
         ThongTinCacChuyenBay.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -333,41 +356,76 @@ public class SearchPanel extends javax.swing.JPanel {
         ThongTinCacChuyenBay.setCellSelectionEnabled(true);
         ThongTinCacChuyenBay.setDropMode(javax.swing.DropMode.INSERT_ROWS);
         ThongTinCacChuyenBay.setName(""); // NOI18N
-        ThongTinCacChuyenBay.setRowHeight(30);
+        ThongTinCacChuyenBay.setRowHeight(32);
         jScrollPane1.setViewportView(ThongTinCacChuyenBay);
         ThongTinCacChuyenBay.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_INTERVAL_SELECTION);
         if (ThongTinCacChuyenBay.getColumnModel().getColumnCount() > 0) {
             ThongTinCacChuyenBay.getColumnModel().getColumn(5).setResizable(false);
-            ThongTinCacChuyenBay.getColumnModel().getColumn(5).setPreferredWidth(30);
+            ThongTinCacChuyenBay.getColumnModel().getColumn(5).setPreferredWidth(15);
         }
+
+        JPanel6.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+
+        pbProcess.setFont(new java.awt.Font("Dialog", 0, 10)); // NOI18N
+        pbProcess.setForeground(new java.awt.Color(0, 204, 51));
+        pbProcess.setIndeterminate(true);
+
+        btnCancel.setText("hủy");
+        btnCancel.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnCancelMouseClicked(evt);
+            }
+        });
+
+        javax.swing.GroupLayout JPanel6Layout = new javax.swing.GroupLayout(JPanel6);
+        JPanel6.setLayout(JPanel6Layout);
+        JPanel6Layout.setHorizontalGroup(
+            JPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, JPanel6Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(pbProcess, javax.swing.GroupLayout.PREFERRED_SIZE, 209, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnCancel)
+                .addGap(19, 19, 19))
+        );
+        JPanel6Layout.setVerticalGroup(
+            JPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(JPanel6Layout.createSequentialGroup()
+                .addGap(5, 5, 5)
+                .addGroup(JPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(pbProcess, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                .addGap(0, 6, Short.MAX_VALUE))
+        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 515, Short.MAX_VALUE)))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 518, Short.MAX_VALUE)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+            .addComponent(JPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jScrollPane1)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, 0)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 470, Short.MAX_VALUE))
+                    .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(JPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnTimKiemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTimKiemActionPerformed
-
+    private void btnSearchMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSearchMouseClicked
+        // TODO add your handling code here:
         String MaNoiDi = city.get(cbSanBayDi.getSelectedItem().toString());
         String MaNoiDen = city.get(cbSanBayDen.getSelectedItem().toString());
         Calendar c = ChonNgayBay.getCalendar();
@@ -388,27 +446,56 @@ public class SearchPanel extends javax.swing.JPanel {
         y = String.valueOf(Nam);
         String[] MaHang = {"VN,VJ,QH", "VN", "VJ", "QH", "VN"};
         String url = "https://demo.datacom.vn/flight?Request=" + MaNoiDi + MaNoiDen + d + m + y + "-1-0-0&Airline=" + MaHang[cbHangBay.getSelectedIndex()];
+        TraThongTinChuyenBay.NgayDi = d + "/" + m + "/" + y;
+        TraThongTinChuyenBay.NgayDen = d + "/" + m + "/" + y;
         DefaultTableModel model = (DefaultTableModel) ThongTinCacChuyenBay.getModel();
-        for (int i = 0; i < list.size(); i++) {
-            model.removeRow(0);
-        }
+        model.setRowCount(0);
         list.clear();
-        System.out.println(url);
-        try {
-            SearchFlight(url);
-        } catch (IOException ex) {
-            Logger.getLogger(SearchPanel.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        for (int i = 0; i < list.size(); i++) {
-            Object[] row = {list.get(i).getTenHangHangKhong(), list.get(i).getMaChuyenBay(), list.get(i).getThoiGianDi(), list.get(i).getThoiGianDen(), list.get(i).getGiaTien()};
-            model.addRow(row);
-        }
-    }//GEN-LAST:event_btnTimKiemActionPerformed
+        thread = new Thread() {
+            @Override
+            public synchronized void start() {
+                super.start(); //To change body of generated methods, choose Tools | Templates.
+                startProcess();
+            }
+
+            @Override
+            public void run() {
+                super.run(); //To change body of generated methods, choose Tools | Templates.
+                try {
+                    SearchFlight(url);
+                } catch (IOException ex) {
+                    Logger.getLogger(SearchFlightPanel.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                for (int i = 0; i < list.size(); i++) {
+                    Object[] row = {list.get(i).getTenHangHangKhong(), list.get(i).getMaChuyenBay(), list.get(i).getThoiGianDi(), list.get(i).getThoiGianDen(), list.get(i).getGiaTien()};
+                    model.addRow(row);
+                }
+                this.interrupt();
+            }
+
+            @Override
+            public void interrupt() {
+                super.interrupt(); //To change body of generated methods, choose Tools | Templates.
+                stopProcess();
+                System.out.println("interupt");
+            }
+
+        };
+        thread.start();
+    }//GEN-LAST:event_btnSearchMouseClicked
+
+    private void btnCancelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCancelMouseClicked
+        // TODO add your handling code here:
+        thread.interrupt();
+    }//GEN-LAST:event_btnCancelMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private com.toedter.calendar.JCalendar ChonNgayBay;
+    private javax.swing.JPanel JPanel6;
     private javax.swing.JTable ThongTinCacChuyenBay;
+    private javax.swing.JButton btnCancel;
+    private javax.swing.JButton btnSearch;
     private javax.swing.JComboBox<String> cbHangBay;
     private javax.swing.JComboBox<String> cbSanBayDen;
     private javax.swing.JComboBox<String> cbSanBayDi;
@@ -418,7 +505,8 @@ public class SearchPanel extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel5;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JProgressBar pbProcess;
     // End of variables declaration//GEN-END:variables
 }

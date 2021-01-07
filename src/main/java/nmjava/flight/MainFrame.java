@@ -19,6 +19,7 @@ import java.awt.event.WindowStateListener;
 import java.io.IOException;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
+import javax.swing.JPanel;
 
 /**
  *
@@ -31,16 +32,16 @@ public class MainFrame extends javax.swing.JFrame {
     };
 
     private Component currentPanel;
+    private typePanel currentType;
 
     /**
      * Creates new form MainFrame
      */
     public MainFrame() {
         initComponents();
+        this.setLocationRelativeTo(null);
         setIcon();
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        Dimension sizeScreen = getToolkit().getScreenSize();
-        this.setLocation((sizeScreen.width - this.getWidth()) / 2, (sizeScreen.height - this.getHeight()) / 2);
         setUnvisibleSelect();
         currentPanel = null;
 
@@ -76,10 +77,10 @@ public class MainFrame extends javax.swing.JFrame {
     }
 
     private void setUnvisibleSelect() {
-        pnSelectTicket.setBackground(pnButton.getBackground());
-        pnSelectSearch.setBackground(pnButton.getBackground());
-        pnSelectStatistic.setBackground(pnButton.getBackground());
-        pnSelectRegulate.setBackground(pnButton.getBackground());
+        pnSelectTicket.setVisible(false);
+        pnSelectSearch.setVisible(false);
+        pnSelectStatistic.setVisible(false);
+        pnSelectRegulate.setVisible(false);
     }
 
     /**
@@ -116,6 +117,7 @@ public class MainFrame extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setLocation(new java.awt.Point(0, 0));
+        setMinimumSize(new java.awt.Dimension(1300, 750));
 
         jPanel3.setBackground(new java.awt.Color(255, 255, 255));
         jPanel3.setPreferredSize(new java.awt.Dimension(652, 74));
@@ -157,6 +159,9 @@ public class MainFrame extends javax.swing.JFrame {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 btnTicketMouseEntered(evt);
             }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnTicketMouseExited(evt);
+            }
         });
 
         pnSelectTicket.setBackground(new java.awt.Color(1, 156, 225));
@@ -183,11 +188,11 @@ public class MainFrame extends javax.swing.JFrame {
             btnTicketLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(btnTicketLayout.createSequentialGroup()
                 .addComponent(pnSelectTicket, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(10, 10, 10)
                 .addComponent(lbImageTicket, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lbTicket, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addContainerGap(119, Short.MAX_VALUE))
         );
         btnTicketLayout.setVerticalGroup(
             btnTicketLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -195,8 +200,8 @@ public class MainFrame extends javax.swing.JFrame {
                 .addGap(0, 0, 0)
                 .addGroup(btnTicketLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(pnSelectTicket, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(lbImageTicket, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(lbTicket, javax.swing.GroupLayout.DEFAULT_SIZE, 50, Short.MAX_VALUE)))
+                    .addComponent(lbImageTicket, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lbTicket, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)))
         );
 
         btnSearch.setBackground(new java.awt.Color(50, 57, 66));
@@ -206,6 +211,9 @@ public class MainFrame extends javax.swing.JFrame {
             }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 btnSearchMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnSearchMouseExited(evt);
             }
         });
 
@@ -237,15 +245,17 @@ public class MainFrame extends javax.swing.JFrame {
                 .addComponent(lbImageSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lbSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addContainerGap(119, Short.MAX_VALUE))
         );
         btnSearchLayout.setVerticalGroup(
             btnSearchLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, btnSearchLayout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(pnSelectSearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addComponent(lbImageSearch, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(lbSearch, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(btnSearchLayout.createSequentialGroup()
+                .addGroup(btnSearchLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lbSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(btnSearchLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(pnSelectSearch, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(lbImageSearch, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         btnStatistic.setBackground(new java.awt.Color(50, 57, 66));
@@ -255,6 +265,9 @@ public class MainFrame extends javax.swing.JFrame {
             }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 btnStatisticMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnStatisticMouseExited(evt);
             }
         });
 
@@ -282,19 +295,21 @@ public class MainFrame extends javax.swing.JFrame {
             btnStatisticLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(btnStatisticLayout.createSequentialGroup()
                 .addComponent(pnSelectStatistic, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(10, 10, 10)
                 .addComponent(lbImageStatistic, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lbStatistic, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 115, Short.MAX_VALUE))
+                .addGap(0, 119, Short.MAX_VALUE))
         );
         btnStatisticLayout.setVerticalGroup(
             btnStatisticLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, btnStatisticLayout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(pnSelectStatistic, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addComponent(lbImageStatistic, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(lbStatistic, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(btnStatisticLayout.createSequentialGroup()
+                .addGroup(btnStatisticLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lbStatistic, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(btnStatisticLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(pnSelectStatistic, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(lbImageStatistic, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         btnRegulate.setBackground(new java.awt.Color(50, 57, 66));
@@ -304,6 +319,9 @@ public class MainFrame extends javax.swing.JFrame {
             }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 btnRegulateMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnRegulateMouseExited(evt);
             }
         });
 
@@ -333,17 +351,19 @@ public class MainFrame extends javax.swing.JFrame {
                 .addComponent(pnSelectRegulate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(10, 10, 10)
                 .addComponent(lbImageRegulate, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lbRegulate, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addGap(0, 119, Short.MAX_VALUE))
         );
         btnRegulateLayout.setVerticalGroup(
             btnRegulateLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, btnRegulateLayout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(pnSelectRegulate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addComponent(lbImageRegulate, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(lbRegulate, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(btnRegulateLayout.createSequentialGroup()
+                .addGroup(btnRegulateLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lbRegulate, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(btnRegulateLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(pnSelectRegulate, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(lbImageRegulate, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         lbRegulate.getAccessibleContext().setAccessibleName("");
@@ -352,10 +372,10 @@ public class MainFrame extends javax.swing.JFrame {
         pnButton.setLayout(pnButtonLayout);
         pnButtonLayout.setHorizontalGroup(
             pnButtonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-            .addComponent(btnSearch, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(btnTicket, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(btnStatistic, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(btnRegulate, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(btnSearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(btnTicket, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(btnStatistic, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(btnRegulate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         pnButtonLayout.setVerticalGroup(
             pnButtonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -366,9 +386,11 @@ public class MainFrame extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnStatistic, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnRegulate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnRegulate, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
         );
+
+        btnRegulate.getAccessibleContext().setAccessibleName("");
 
         pnFunction.setBackground(new java.awt.Color(239, 243, 246));
 
@@ -376,7 +398,7 @@ public class MainFrame extends javax.swing.JFrame {
         pnFunction.setLayout(pnFunctionLayout);
         pnFunctionLayout.setHorizontalGroup(
             pnFunctionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1031, Short.MAX_VALUE)
+            .addGap(0, 1131, Short.MAX_VALUE)
         );
         pnFunctionLayout.setVerticalGroup(
             pnFunctionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -402,7 +424,7 @@ public class MainFrame extends javax.swing.JFrame {
                 .addComponent(pnButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
                 .addComponent(pnFunction, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, 1300, Short.MAX_VALUE)
+            .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, 1400, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -440,63 +462,82 @@ public class MainFrame extends javax.swing.JFrame {
     // mouse entered event
     private void btnTicketMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnTicketMouseEntered
         // TODO add your handling code here:
-        setEffectHoverButton(evt.getComponent());
+        btnTicket.setBackground(new Color(99, 117, 131));
     }//GEN-LAST:event_btnTicketMouseEntered
 
     private void btnSearchMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSearchMouseEntered
         // TODO add your handling code here:
-        setEffectHoverButton(evt.getComponent());
+        btnSearch.setBackground(new Color(99, 117, 131));
     }//GEN-LAST:event_btnSearchMouseEntered
 
     private void btnStatisticMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnStatisticMouseEntered
         // TODO add your handling code here:
-        setEffectHoverButton(evt.getComponent());
+        btnStatistic.setBackground(new Color(99, 117, 131));
     }//GEN-LAST:event_btnStatisticMouseEntered
 
     private void btnRegulateMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnRegulateMouseEntered
         // TODO add your handling code here:
-        setEffectHoverButton(evt.getComponent());
+        btnRegulate.setBackground(new Color(99, 117, 131));
     }//GEN-LAST:event_btnRegulateMouseEntered
 
+    private void btnTicketMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnTicketMouseExited
+        // TODO add your handling code here:
+        btnTicket.setBackground(new Color(50, 57, 66));
+    }//GEN-LAST:event_btnTicketMouseExited
+
+    private void btnSearchMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSearchMouseExited
+        // TODO add your handling code here:
+        btnSearch.setBackground(new Color(50, 57, 66));
+    }//GEN-LAST:event_btnSearchMouseExited
+
+    private void btnStatisticMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnStatisticMouseExited
+        // TODO add your handling code here:
+        btnStatistic.setBackground(new Color(50, 57, 66));
+    }//GEN-LAST:event_btnStatisticMouseExited
+
+    private void btnRegulateMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnRegulateMouseExited
+        // TODO add your handling code here:
+        btnRegulate.setBackground(new Color(50, 57, 66));
+    }//GEN-LAST:event_btnRegulateMouseExited
+
     private void setPanel(Component button, typePanel type) {
+        if (currentType == type) {
+            return;
+        }
+        currentType = type;
         setUnvisibleSelect();
         button.setBackground(new Color(50, 57, 66));
         switch (type) {
             case TICKET:
                 lbContent.setText("Bán vé chuyến bay");
-                pnSelectTicket.setBackground(lbContent.getBackground());
+                pnSelectTicket.setVisible(true);
+                currentPanel = new SellTicketPanel();
                 break;
             case SEARCH:
-                lbContent.setText("Tra cứu chuyến bay");
-                pnSelectSearch.setBackground(lbContent.getBackground());
-                currentPanel = new SearchPanel();
+                lbContent.setText("Danh sách vé");
+                pnSelectSearch.setVisible(true);
+                currentPanel = new SearchTicket();
                 break;
             case STATISTIC:
                 lbContent.setText("Thống kê doanh thu");
-                pnSelectStatistic.setBackground(lbContent.getBackground());
+                pnSelectStatistic.setVisible(true);
                 currentPanel = new ReportPanel();
                 break;
             case REGULATE:
                 lbContent.setText("Quy định chung");
-                pnSelectRegulate.setBackground(lbContent.getBackground());
+                pnSelectRegulate.setVisible(true);
+                currentPanel = new RegulationPanel();
                 break;
         }
 
         if (currentPanel == null) {
             return;
         }
+        
         pnFunction.removeAll();
         pnFunction.repaint();
         currentPanel.setSize(pnFunction.getSize());
         pnFunction.add(currentPanel);
-    }
-
-    private void setEffectHoverButton(Component button) {
-        btnTicket.setBackground(new Color(50, 57, 66));
-        btnSearch.setBackground(new Color(50, 57, 66));
-        btnStatistic.setBackground(new Color(50, 57, 66));
-        btnRegulate.setBackground(new Color(50, 57, 66));
-        button.setBackground(new Color(99, 117, 131));
     }
 
     /**

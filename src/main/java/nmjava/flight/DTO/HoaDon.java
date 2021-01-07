@@ -12,11 +12,11 @@ import java.sql.Date;
  * @author Cuong
  */
 public class HoaDon {
-    String MaHoaDon;
-    int SoVe;
-    Date ThoiGianTao;
-    double TongTien;
-    double TienLai;
+    public String MaHoaDon;
+    public int SoVe;
+    public Date ThoiGianTao;
+    public double TongTien;
+    public double TienLai;
 
     public HoaDon(String MaHoaDon, int SoVe, double TongTien, double TienLai, Date ThoiGianTao) {
         this.MaHoaDon = MaHoaDon;
@@ -24,6 +24,9 @@ public class HoaDon {
         this.TongTien = TongTien;
         this.TienLai = TienLai;
         this.SoVe = SoVe;
+    }
+
+    public HoaDon() {
     }
     
     

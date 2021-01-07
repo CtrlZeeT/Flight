@@ -20,8 +20,16 @@ public class HoaDonBLL {
     public HoaDonBLL() {
         dalHoaDon = new HoaDonDAL();
     }
-public ArrayList<HoaDon> getHoaDonWithMonthAndYear(String month, String year) {
+    public ArrayList<HoaDon> getHoaDonWithMonthAndYear(String month, String year) {
         return dalHoaDon.getHoaDonWithMonthAndYear(month, year);
+    }
+    public boolean InsertHoaDon(HoaDon HD)
+    {
+        return dalHoaDon.insertHoaDon(HD);
+    }
+    public String getMaHoaDon()
+    {
+        return dalHoaDon.getMaHoaDon();
     }
 
 }

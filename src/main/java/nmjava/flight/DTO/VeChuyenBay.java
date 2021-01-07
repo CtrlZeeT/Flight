@@ -10,16 +10,17 @@ package nmjava.flight.DTO;
  * @author xuanluan
  */
 public class VeChuyenBay {
-    private String MaVe;
-    private String NoiDi;
-    private String NoiDen;
-    private int GiaVe;
-    private String HoTen;
-    private String CMND;
-    private String SDT;
-    private String Email;
-    private String TrangThai;
-    private String MaHoaDon;
+    public String MaVe;
+    public String MaChuyenBay;
+    public String NoiDi;
+    public String NoiDen;
+    public int GiaVe;
+    public String HoTen;
+    public String CMND;
+    public String SDT;
+    public String Email;
+    public String TrangThai;
+    public String MaHoaDon;
 
     public String getMaVe() {
         return MaVe;
