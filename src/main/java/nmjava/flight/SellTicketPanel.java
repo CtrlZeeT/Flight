@@ -103,11 +103,11 @@ public class SellTicketPanel extends javax.swing.JPanel {
         pnSearch.setLayout(pnSearchLayout);
         pnSearchLayout.setHorizontalGroup(
             pnSearchLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 739, Short.MAX_VALUE)
+            .addGap(0, 0, Short.MAX_VALUE)
         );
         pnSearchLayout.setVerticalGroup(
             pnSearchLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 625, Short.MAX_VALUE)
+            .addGap(0, 0, Short.MAX_VALUE)
         );
 
         jTabbedPane1.addTab("Chọn chuyến bay", pnSearch);
@@ -116,7 +116,7 @@ public class SellTicketPanel extends javax.swing.JPanel {
         pnBook.setLayout(pnBookLayout);
         pnBookLayout.setHorizontalGroup(
             pnBookLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 739, Short.MAX_VALUE)
+            .addGap(0, 832, Short.MAX_VALUE)
         );
         pnBookLayout.setVerticalGroup(
             pnBookLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

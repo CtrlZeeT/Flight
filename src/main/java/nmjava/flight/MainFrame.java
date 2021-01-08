@@ -44,27 +44,6 @@ public class MainFrame extends javax.swing.JFrame {
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setUnvisibleSelect();
         currentPanel = null;
-
-        this.addWindowStateListener(new WindowStateListener() {
-            @Override
-            public void windowStateChanged(WindowEvent e) {
-                if (currentPanel != null) {
-                    currentPanel.setSize(e.getWindow().getSize());
-                }
-            }
-        });
-        pnFunction.addComponentListener(new ComponentAdapter() {
-            @Override
-            public void componentResized(ComponentEvent e) {
-                if (currentPanel != null) {
-                    currentPanel.setSize(e.getComponent().getSize());
-                }
-            }
-
-            @Override
-            public void componentMoved(ComponentEvent e) {
-            }
-        });
     }
 
     private void setIcon() {
@@ -398,7 +377,7 @@ public class MainFrame extends javax.swing.JFrame {
         pnFunction.setLayout(pnFunctionLayout);
         pnFunctionLayout.setHorizontalGroup(
             pnFunctionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1131, Short.MAX_VALUE)
+            .addGap(0, 1031, Short.MAX_VALUE)
         );
         pnFunctionLayout.setVerticalGroup(
             pnFunctionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -424,7 +403,7 @@ public class MainFrame extends javax.swing.JFrame {
                 .addComponent(pnButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
                 .addComponent(pnFunction, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, 1400, Short.MAX_VALUE)
+            .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, 1300, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -535,9 +514,17 @@ public class MainFrame extends javax.swing.JFrame {
         }
         
         pnFunction.removeAll();
-        pnFunction.repaint();
-        currentPanel.setSize(pnFunction.getSize());
-        pnFunction.add(currentPanel);
+        
+        javax.swing.GroupLayout layout1 = new javax.swing.GroupLayout(pnFunction);
+        pnFunction.setLayout(layout1);
+        layout1.setHorizontalGroup(
+                layout1.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(currentPanel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        layout1.setVerticalGroup(
+                layout1.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(currentPanel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
     }
 
     /**

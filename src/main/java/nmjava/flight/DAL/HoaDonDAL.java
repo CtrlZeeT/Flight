@@ -28,7 +28,7 @@ public class HoaDonDAL {
             // get data from table 'student'
             ResultSet rs = stmt.executeQuery(sql);
             while (rs.next()) {
-                list.add(new HoaDon(rs.getString(1), rs.getInt(2), rs.getDouble(3), rs.getDouble(4), rs.getDate(5)));
+                list.add(new HoaDon(rs.getString(1), rs.getInt(3), rs.getDouble(2), rs.getDouble(4), rs.getString(5)));
             }
             // show data  
             // close connection
@@ -41,16 +41,16 @@ public class HoaDonDAL {
     }
     public String getMaHoaDon() {
         String sql = "select dbo.AUTO_IDHD()";
-        String result;
+        String result= new String();
         try {
             Connection conn = ConnectSQLServer.getConnection();
             // crate statement
             Statement stmt = conn.createStatement();
             // get data from table 'student'
             ResultSet rs = stmt.executeQuery(sql);
-            result=rs.getString(1);
-            // show data  
-            // close connection
+            while (rs.next()) {
+                result=rs.getString(1);
+            }
             conn.close();
         } catch (Exception ex) {
             ex.printStackTrace();
@@ -60,22 +60,43 @@ public class HoaDonDAL {
     }
     public boolean insertHoaDon(HoaDon HD) {
         // Tạo câu lệnh SQL (Cách 2: sử dụng PreparedStatement)
-        String sql = "INSERT INTO HoaDon(SoVe,TongTien,ThoiGianTao,TienLai) "
-                + "VALUES(?,?,?,?)";
+        String sql = "INSERT INTO HoaDon(MaHoaDon,SoVe,TongTien,ThoiGianTao,TienLai) "
+                + "VALUES(?,?,?,?,?)";
 
         // Kết nối database
         try {
             Connection conn = ConnectSQLServer.getConnection();
 
             PreparedStatement stmt = conn.prepareStatement(sql);
-            stmt.setInt(1, HD.SoVe);
-            stmt.setDouble(2, HD.TongTien);
-            stmt.setDate(3, HD.ThoiGianTao);
-            stmt.setDouble(4, HD.TienLai);
+            System.out.println(HD.MaHoaDon+"\n"+HD.SoVe+"\n"+HD.TongTien+"\n"+HD.ThoiGianTao+"\n"+HD.TienLai);
+            stmt.setString(1, HD.MaHoaDon);
+            stmt.setInt(2, HD.SoVe);
+            stmt.setDouble(3, HD.TongTien);
+            stmt.setString(4, HD.ThoiGianTao);
+            stmt.setDouble(5, HD.TienLai);
             
             // Thực hiện lệnh SQL
             stmt.executeUpdate();
 
+            // Đóng kết nối
+            conn.close();
+            return true;
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            return false;
+        }
+    }
+    public boolean updateHoaDon(String MaHoaDon,int TienHuy) {
+        // Tạo câu lệnh SQL (Cách 2: sử dụng PreparedStatement)
+        String sql = "UPDATE HoaDon SET TongTien = TongTien - ? WHERE MaHoaDon = ? ";
+        // Kết nối database
+        try {
+            Connection conn = ConnectSQLServer.getConnection();
+            PreparedStatement stmt = conn.prepareStatement(sql);           
+            // Thực hiện lệnh SQL
+            stmt.setInt(1, TienHuy);
+            stmt.setString(2, MaHoaDon);
+            stmt.executeUpdate();
             // Đóng kết nối
             conn.close();
             return true;

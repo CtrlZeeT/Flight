@@ -14,19 +14,32 @@ import nmjava.flight.DTO.VeChuyenBay;
  * @author xuanluan
  */
 public class VeChuyenBayBLL {
+
     VeChuyenBayDAL dalVCB;
-    
-    public VeChuyenBayBLL(){
+
+    public VeChuyenBayBLL() {
         dalVCB = new VeChuyenBayDAL();
     }
+
     public void getAllData() {
         dalVCB.getALLDaTa();
     }
-    public boolean InsertVeChuyenBay(VeChuyenBay vcb)
-    {
+
+    public boolean InsertVeChuyenBay(VeChuyenBay vcb) {
         return dalVCB.insertVeChuyenBay(vcb);
     }
-    public ArrayList<Object [] > getVeChuyenBay() {
+
+    public ArrayList<Object[]> getVeChuyenBay() {
         return dalVCB.getVeChuyenBay();
+    }
+
+    public boolean updateVeChuyenBay(String MaVe) {
+        return dalVCB.updateVeChuyenBay(MaVe);
+    }
+
+    public String getMaHoaDon(String MaVe) {
+        {
+            return dalVCB.getMaHoaDon(MaVe);
+        }
     }
 }

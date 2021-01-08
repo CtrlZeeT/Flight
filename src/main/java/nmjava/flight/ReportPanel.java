@@ -387,8 +387,7 @@ public class ReportPanel extends javax.swing.JPanel {
         HoaDonBLL bllHoaDon = new HoaDonBLL();
         ArrayList<HoaDon> list = bllHoaDon.getHoaDonWithMonthAndYear(month, year);
         DefaultTableModel model = (DefaultTableModel) tableMonth.getModel();
-        for (int i = 0; i < model.getRowCount(); i++)
-        model.removeRow(0);
+        model.setRowCount(0);
         int TongSoVe = 0;
         double TongDoanhThu = 0;
         for (HoaDon item : list) {

@@ -16,6 +16,8 @@ import javax.swing.JTable;
 import javax.swing.UIManager;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
+import nmjava.flight.BLL.HoaDonBLL;
+import nmjava.flight.BLL.ThamSoBLL;
 import nmjava.flight.BLL.VeChuyenBayBLL;
 
 /**
@@ -25,6 +27,8 @@ import nmjava.flight.BLL.VeChuyenBayBLL;
 public class SearchTicket extends javax.swing.JPanel {
 
     VeChuyenBayBLL bllVCB;
+    ThamSoBLL bllTS;
+    HoaDonBLL bllHD;
     
     public SearchTicket() {
         initComponents();
@@ -32,6 +36,8 @@ public class SearchTicket extends javax.swing.JPanel {
         tableThongTinVe.getColumn(tableThongTinVe.getColumnName(8)).setCellEditor(new SearchTicket.ButtonEditor(new JCheckBox()));
         
         bllVCB=new VeChuyenBayBLL();
+        bllTS=new ThamSoBLL();
+        bllHD=new HoaDonBLL();
         DefaultTableModel model = (DefaultTableModel) tableThongTinVe.getModel();
         ArrayList<Object [] > list = new ArrayList<>();
         list = bllVCB.getVeChuyenBay();
@@ -100,7 +106,19 @@ public class SearchTicket extends javax.swing.JPanel {
         @Override
         public Object getCellEditorValue() {
             if (isPushed) {
-                //click button hủy
+                if(tableThongTinVe.getValueAt(index, 7).toString()!="Hủy")
+                {
+                System.out.println(tableThongTinVe.getValueAt(index, 0).toString());
+                bllVCB.updateVeChuyenBay(tableThongTinVe.getValueAt(index, 0).toString());
+                String MaHoaDon=bllVCB.getMaHoaDon(tableThongTinVe.getValueAt(index, 0).toString());
+                System.out.println(MaHoaDon);
+                bllHD.updateHoaDon(MaHoaDon,bllTS.getTienHuyVe());
+                tableThongTinVe.setValueAt("Hủy", index, 7);
+                }
+                else
+                {
+                    
+                }
             }
             isPushed = false;
             return label;
@@ -124,8 +142,6 @@ public class SearchTicket extends javax.swing.JPanel {
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<>();
         jLabel4 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
         tableThongTinVe = new javax.swing.JTable();
@@ -142,12 +158,6 @@ public class SearchTicket extends javax.swing.JPanel {
         jLabel1.setName(""); // NOI18N
         jLabel1.setOpaque(true);
 
-        jLabel3.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
-        jLabel3.setText("Trạng thái:");
-
-        jComboBox1.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-
         jLabel4.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(0, 204, 51));
         jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -156,15 +166,20 @@ public class SearchTicket extends javax.swing.JPanel {
         tableThongTinVe.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
         tableThongTinVe.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null}
+
             },
             new String [] {
-                "Mã vé", "Hạng vé", "Giá tiền", "Họ và tên", "CMND", "Số điện thoại", "Email", "Trạng thái", ""
+                "Mã vé", "Mã chuyến bay", "Giá tiền", "Họ và tên", "CMND", "Số điện thoại", "Email", "Trạng thái", ""
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false, false, false, true
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         tableThongTinVe.setRowHeight(32);
         jScrollPane2.setViewportView(tableThongTinVe);
         if (tableThongTinVe.getColumnModel().getColumnCount() > 0) {
@@ -189,11 +204,7 @@ public class SearchTicket extends javax.swing.JPanel {
                 .addComponent(jLabel15, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jTextField_SDT1, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 107, Short.MAX_VALUE)
-                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(24, 24, 24))
+                .addGap(24, 390, Short.MAX_VALUE))
             .addComponent(jScrollPane2)
             .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
@@ -202,13 +213,9 @@ public class SearchTicket extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel15, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jTextField_SDT1, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel15)
+                    .addComponent(jTextField_SDT1, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(14, 14, 14)
@@ -218,10 +225,8 @@ public class SearchTicket extends javax.swing.JPanel {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel15;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTextField jTextField_SDT1;
