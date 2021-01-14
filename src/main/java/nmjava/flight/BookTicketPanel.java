@@ -9,6 +9,7 @@ import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultCellEditor;
@@ -627,8 +628,9 @@ public class BookTicketPanel extends javax.swing.JPanel {
             HD.TienLai = tableThongTinVe.getRowCount() * bllTS.getTienLaiMoiVe();
             HD.SoVe = tableThongTinVe.getRowCount();
             LocalDateTime ldt = LocalDateTime.now().plusDays(1);
-            HD.TongTien = Double.parseDouble(lbTongTien.getText());
-            HD.ThoiGianTao = ldt.toString();
+            HD.TongTien = Integer.parseInt(lbTongTien.getText());
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
+            HD.ThoiGianTao = ldt.format(formatter);
             bllHD.InsertHoaDon(HD);
             String ThongTinVe = "";
             for (int i = 0; i < tableThongTinVe.getRowCount(); i++) {

@@ -15,10 +15,10 @@ public class HoaDon {
     public String MaHoaDon;
     public int SoVe;
     public String ThoiGianTao;
-    public double TongTien;
-    public double TienLai;
+    public int TongTien;
+    public int TienLai;
 
-    public HoaDon(String MaHoaDon, int SoVe, double TongTien, double TienLai, String ThoiGianTao) {
+    public HoaDon(String MaHoaDon, int SoVe, int TongTien, int TienLai, String ThoiGianTao) {
         this.MaHoaDon = MaHoaDon;
         this.ThoiGianTao = ThoiGianTao;
         this.TongTien = TongTien;
@@ -46,7 +46,7 @@ public class HoaDon {
         this.ThoiGianTao = ThoiGianTao;
     }
 
-    public double getTongTien() {
+    public int getTongTien() {
         return TongTien;
     }
 
@@ -54,11 +54,11 @@ public class HoaDon {
         this.TongTien = TongTien;
     }
 
-    public double getTienLai() {
+    public int getTienLai() {
         return TienLai;
     }
 
-    public void setTienLai(double TienLai) {
+    public void setTienLai(int TienLai) {
         this.TienLai = TienLai;
     }
 

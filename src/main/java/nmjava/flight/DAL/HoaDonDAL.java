@@ -28,7 +28,7 @@ public class HoaDonDAL {
             // get data from table 'student'
             ResultSet rs = stmt.executeQuery(sql);
             while (rs.next()) {
-                list.add(new HoaDon(rs.getString(1), rs.getInt(3), rs.getDouble(2), rs.getDouble(4), rs.getString(5)));
+                list.add(new HoaDon(rs.getString(1), rs.getInt(3), rs.getInt(2), rs.getInt(4), rs.getString(5)));
             }
             // show data  
             // close connection

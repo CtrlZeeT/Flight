@@ -7,6 +7,7 @@ D:\Nam3_Ki1\Java\Flight\src\main\java\nmjava\flight\DAL\VeChuyenBayDAL.java
 D:\Nam3_Ki1\Java\Flight\src\main\java\nmjava\flight\SearchFlightPanel.java
 D:\Nam3_Ki1\Java\Flight\src\main\java\nmjava\flight\SellTicketPanel.java
 D:\Nam3_Ki1\Java\Flight\src\main\java\nmjava\flight\BLL\ThamSoBLL.java
+D:\Nam3_Ki1\Java\Flight\src\main\java\nmjava\flight\Utility\Mail.java
 D:\Nam3_Ki1\Java\Flight\src\main\java\nmjava\flight\ChuyenBay.java
 D:\Nam3_Ki1\Java\Flight\src\main\java\nmjava\flight\ReportPanel.java
 D:\Nam3_Ki1\Java\Flight\src\main\java\nmjava\flight\DAL\HoaDonDAL.java
@@ -14,7 +15,6 @@ D:\Nam3_Ki1\Java\Flight\src\main\java\nmjava\flight\Utility\StringVerify.java
 D:\Nam3_Ki1\Java\Flight\src\main\java\nmjava\flight\RegulationPanel.java
 D:\Nam3_Ki1\Java\Flight\src\main\java\nmjava\flight\DAL\ConnectSQLServer.java
 D:\Nam3_Ki1\Java\Flight\src\main\java\nmjava\flight\MainFrame.java
-D:\Nam3_Ki1\Java\Flight\src\main\java\nmjava\flight\Utility\SendMail.java
 D:\Nam3_Ki1\Java\Flight\src\main\java\nmjava\flight\DTO\VeChuyenBay.java
 D:\Nam3_Ki1\Java\Flight\src\main\java\nmjava\flight\DTO\HoaDon.java
 D:\Nam3_Ki1\Java\Flight\src\main\java\nmjava\flight\DTO\ThamSo.java

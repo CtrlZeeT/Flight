@@ -11,6 +11,7 @@ import java.awt.Color;
 import java.awt.event.KeyEvent;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import nmjava.flight.Utility.Notification;
 
 /**
  *
@@ -38,7 +39,6 @@ public class RegulationPanel extends javax.swing.JPanel {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
-
         jLabel11 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         jTextField1 = new javax.swing.JTextField();
@@ -202,7 +202,7 @@ public class RegulationPanel extends javax.swing.JPanel {
         Matcher m2 = p.matcher(jTextField2.getText());
         if (m1.find() || m2.find()){
             jLabel_TB.setForeground(new Color(255,0,0));
-            jLabel_TB.setText("Tham số vừa thêm không đúng kiểu");
+            Notification.show(jLabel_TB,"Tham số vừa thêm không đúng kiểu",false);
         }
         else {
             bllThamSo.setTienLaiMoiVe(Integer.parseInt(jTextField1.getText()));
@@ -210,7 +210,7 @@ public class RegulationPanel extends javax.swing.JPanel {
             setEditInfomation(false);
             jButton_ChinhSua.setEnabled(true);        
             jLabel_TB.setForeground(new Color(0,204,51));
-            jLabel_TB.setText("Chỉnh sửa thành công");
+            Notification.show(jLabel_TB,"Chỉnh sửa thành công",true);
         }
     }//GEN-LAST:event_jButton_LuuActionPerformed
 
@@ -222,7 +222,7 @@ public class RegulationPanel extends javax.swing.JPanel {
         setEditInfomation(false);
         jButton_ChinhSua.setEnabled(true);
         jLabel_TB.setForeground(new Color(0,0,0));
-        jLabel_TB.setText("Hủy chỉnh sửa");
+        Notification.show(jLabel_TB,"Hủy chỉnh sửa",true);
     }//GEN-LAST:event_jButton_HuyActionPerformed
 
 

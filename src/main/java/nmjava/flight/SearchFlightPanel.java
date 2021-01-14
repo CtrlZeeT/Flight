@@ -75,12 +75,6 @@ public class SearchFlightPanel extends javax.swing.JPanel {
         stopProcess();
         ThongTinCacChuyenBay.getColumn(ThongTinCacChuyenBay.getColumnName(5)).setCellRenderer(new ButtonRenderer());
         ThongTinCacChuyenBay.getColumn(ThongTinCacChuyenBay.getColumnName(5)).setCellEditor(new ButtonEditor(new JCheckBox()));
-
-        DefaultTableModel model = (DefaultTableModel) ThongTinCacChuyenBay.getModel();
-        for (int i = 0; i < 5; i++) {
-            Object[] row = {'a', 'a', 'a', 'a', 'a'};
-            model.addRow(row);
-        }
     }
 
     class ButtonRenderer extends JButton implements TableCellRenderer {
