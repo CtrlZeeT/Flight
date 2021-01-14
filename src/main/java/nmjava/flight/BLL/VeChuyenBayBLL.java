@@ -33,6 +33,10 @@ public class VeChuyenBayBLL {
         return dalVCB.getVeChuyenBay();
     }
 
+    public ArrayList<Object[]> getVeChuyenBayFrom(String text) {
+        return dalVCB.getVeChuyenBayFrom(text);
+    }
+
     public boolean updateVeChuyenBay(String MaVe) {
         return dalVCB.updateVeChuyenBay(MaVe);
     }

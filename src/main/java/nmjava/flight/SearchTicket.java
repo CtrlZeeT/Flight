@@ -5,6 +5,7 @@
  */
 package nmjava.flight;
 
+import com.sun.activation.viewers.TextEditor;
 import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -14,11 +15,14 @@ import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JTable;
 import javax.swing.UIManager;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
 import nmjava.flight.BLL.HoaDonBLL;
 import nmjava.flight.BLL.ThamSoBLL;
 import nmjava.flight.BLL.VeChuyenBayBLL;
+import nmjava.flight.Utility.Notification;
 
 /**
  *
@@ -29,24 +33,56 @@ public class SearchTicket extends javax.swing.JPanel {
     VeChuyenBayBLL bllVCB;
     ThamSoBLL bllTS;
     HoaDonBLL bllHD;
-    
+    DefaultTableModel model;
+
     public SearchTicket() {
         initComponents();
         tableThongTinVe.getColumn(tableThongTinVe.getColumnName(8)).setCellRenderer(new SearchTicket.ButtonRenderer());
         tableThongTinVe.getColumn(tableThongTinVe.getColumnName(8)).setCellEditor(new SearchTicket.ButtonEditor(new JCheckBox()));
+
         
-        bllVCB=new VeChuyenBayBLL();
-        bllTS=new ThamSoBLL();
-        bllHD=new HoaDonBLL();
-        DefaultTableModel model = (DefaultTableModel) tableThongTinVe.getModel();
-        ArrayList<Object [] > list = new ArrayList<>();
+        jLabel4.setText("");
+        
+        
+        bllVCB = new VeChuyenBayBLL();
+        bllTS = new ThamSoBLL();
+        bllHD = new HoaDonBLL();
+
+        model = (DefaultTableModel) tableThongTinVe.getModel();
+        ArrayList<Object[]> list = new ArrayList<>();
         list = bllVCB.getVeChuyenBay();
-        for (Object[] number : list) { 
+        for (Object[] number : list) {
             model.addRow(number);
-        }         
+        }
+
+        // Listen for changes in the text
+        // Listen for changes in the text
+        txtSearch.getDocument().addDocumentListener(new DocumentListener() {
+            public void changedUpdate(DocumentEvent e) {
+                warn();
+            }
+
+            public void removeUpdate(DocumentEvent e) {
+                warn();
+            }
+
+            public void insertUpdate(DocumentEvent e) {
+                warn();
+            }
+
+            public void warn() {
+                model.setRowCount(0);
+                ArrayList<Object[]> list = new ArrayList<>();
+                list = bllVCB.getVeChuyenBayFrom(txtSearch.getText());
+                for (Object[] number : list) {
+                    model.addRow(number);
+                }
+            }
+        });
+        
     }
-    
-      class ButtonRenderer extends JButton implements TableCellRenderer {
+
+    class ButtonRenderer extends JButton implements TableCellRenderer {
 
         public ButtonRenderer() {
             setOpaque(true);
@@ -106,18 +142,16 @@ public class SearchTicket extends javax.swing.JPanel {
         @Override
         public Object getCellEditorValue() {
             if (isPushed) {
-                if(tableThongTinVe.getValueAt(index, 7).toString()!="Hủy")
-                {
-                System.out.println(tableThongTinVe.getValueAt(index, 0).toString());
-                bllVCB.updateVeChuyenBay(tableThongTinVe.getValueAt(index, 0).toString());
-                String MaHoaDon=bllVCB.getMaHoaDon(tableThongTinVe.getValueAt(index, 0).toString());
-                System.out.println(MaHoaDon);
-                bllHD.updateHoaDon(MaHoaDon,bllTS.getTienHuyVe());
-                tableThongTinVe.setValueAt("Hủy", index, 7);
-                }
-                else
-                {
-                    
+                if (tableThongTinVe.getValueAt(index, 7).toString() != "Hủy") {
+                    System.out.println(tableThongTinVe.getValueAt(index, 0).toString());
+                    bllVCB.updateVeChuyenBay(tableThongTinVe.getValueAt(index, 0).toString());
+                    String MaHoaDon = bllVCB.getMaHoaDon(tableThongTinVe.getValueAt(index, 0).toString());
+                    System.out.println(MaHoaDon);
+                    bllHD.updateHoaDon(MaHoaDon, bllTS.getTienHuyVe());
+                    tableThongTinVe.setValueAt("Hủy", index, 7);
+                    Notification.show(jLabel4, "Hủy vé thành công" ,true);
+                } else {
+
                 }
             }
             isPushed = false;
@@ -130,7 +164,6 @@ public class SearchTicket extends javax.swing.JPanel {
             return super.stopCellEditing();
         }
     }
-    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -146,7 +179,7 @@ public class SearchTicket extends javax.swing.JPanel {
         jScrollPane2 = new javax.swing.JScrollPane();
         tableThongTinVe = new javax.swing.JTable();
         jLabel15 = new javax.swing.JLabel();
-        jTextField_SDT1 = new javax.swing.JTextField();
+        txtSearch = new javax.swing.JTextField();
 
         setBackground(new java.awt.Color(255, 255, 255));
 
@@ -190,9 +223,9 @@ public class SearchTicket extends javax.swing.JPanel {
         jLabel15.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
         jLabel15.setText("Tìm kiếm:");
 
-        jTextField_SDT1.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
-        jTextField_SDT1.setForeground(new java.awt.Color(51, 51, 51));
-        jTextField_SDT1.setToolTipText("Số điện thoại");
+        txtSearch.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
+        txtSearch.setForeground(new java.awt.Color(51, 51, 51));
+        txtSearch.setToolTipText("Số điện thoại");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -203,7 +236,7 @@ public class SearchTicket extends javax.swing.JPanel {
                 .addGap(20, 20, 20)
                 .addComponent(jLabel15, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTextField_SDT1, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txtSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(24, 390, Short.MAX_VALUE))
             .addComponent(jScrollPane2)
             .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -215,7 +248,7 @@ public class SearchTicket extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel15)
-                    .addComponent(jTextField_SDT1, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(14, 14, 14)
@@ -229,7 +262,7 @@ public class SearchTicket extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTextField jTextField_SDT1;
     private javax.swing.JTable tableThongTinVe;
+    private javax.swing.JTextField txtSearch;
     // End of variables declaration//GEN-END:variables
 }

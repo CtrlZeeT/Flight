@@ -38,9 +38,10 @@ public class VeChuyenBayDAL {
             ex.printStackTrace();
         }
     }
-    public ArrayList<Object [] > getVeChuyenBay() {
-       // ArrayList<VeChuyenBay> list = new ArrayList<>();
-        ArrayList<Object [] > list = new ArrayList<>();
+
+    public ArrayList<Object[]> getVeChuyenBay() {
+        // ArrayList<VeChuyenBay> list = new ArrayList<>();
+        ArrayList<Object[]> list = new ArrayList<>();
         String sql = "select * from VeChuyenBay";
         try {
             Connection conn = ConnectSQLServer.getConnection();
@@ -49,7 +50,36 @@ public class VeChuyenBayDAL {
             // get data from table 'student'
             ResultSet rs = stmt.executeQuery(sql);
             while (rs.next()) {
-                Object[] row={rs.getString(1),rs.getString(2),rs.getInt(3),rs.getString(4),rs.getString(5),rs.getString(6),rs.getString(7),rs.getString(8)};
+                Object[] row = {rs.getString(1), rs.getString(2), rs.getInt(3), rs.getString(4), rs.getString(5), rs.getString(6), rs.getString(7), rs.getString(8)};
+                list.add(row);
+            }
+            // show data  
+            // close connection
+            conn.close();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            return null;
+        }
+        return list;
+    }
+
+    public ArrayList<Object[]> getVeChuyenBayFrom(String text) {
+        // ArrayList<VeChuyenBay> list = new ArrayList<>();
+        ArrayList<Object[]> list = new ArrayList<>();
+        String sql = "select * from VECHUYENBAY where  MaVe like '" + text + "%' or "
+                + "MaChuyenBay like '" + text + "%' or "
+                + "HoTen like N'" + text + "%' or  CMND like '" + text + "%' or "
+                + "SDT like '" + text + "%' or "
+                + "Email like '" + text + "%' or "
+                + "TrangThai like N'" + text + "%' or MaHoaDon like '" + text + "%'";
+        try {
+            Connection conn = ConnectSQLServer.getConnection();
+            // crate statement
+            Statement stmt = conn.createStatement();
+            // get data from table 'student'
+            ResultSet rs = stmt.executeQuery(sql);
+            while (rs.next()) {
+                Object[] row = {rs.getString(1), rs.getString(2), rs.getInt(3), rs.getString(4), rs.getString(5), rs.getString(6), rs.getString(7), rs.getString(8)};
                 list.add(row);
             }
             // show data  
@@ -80,7 +110,7 @@ public class VeChuyenBayDAL {
             stmt.setString(6, vcb.Email);
             stmt.setString(7, vcb.TrangThai);
             stmt.setString(8, vcb.MaHoaDon);
-            
+
             // Thực hiện lệnh SQL
             stmt.executeUpdate();
 
@@ -92,6 +122,7 @@ public class VeChuyenBayDAL {
             return false;
         }
     }
+
     public boolean updateVeChuyenBay(String MaVe) {
         // Tạo câu lệnh SQL (Cách 2: sử dụng PreparedStatement)
         String sql = "UPDATE VECHUYENBAY SET TrangThai = ? WHERE MaVe = ?";
@@ -102,7 +133,7 @@ public class VeChuyenBayDAL {
 
             PreparedStatement stmt = conn.prepareStatement(sql);
             stmt.setString(1, "Hủy");
-            stmt.setString(2, MaVe);           
+            stmt.setString(2, MaVe);
             // Thực hiện lệnh SQL
             stmt.executeUpdate();
 
@@ -114,10 +145,11 @@ public class VeChuyenBayDAL {
             return false;
         }
     }
+
     public String getMaHoaDon(String MaVe) {
-       // ArrayList<VeChuyenBay> list = new ArrayList<>();
+        // ArrayList<VeChuyenBay> list = new ArrayList<>();
         String sql = "select MaHoaDon from VeChuyenBay where MaVe= ?";
-        String MaHoaDon="";
+        String MaHoaDon = "";
         try {
             Connection conn = ConnectSQLServer.getConnection();
             // crate statement
@@ -125,7 +157,7 @@ public class VeChuyenBayDAL {
             stmt.setString(1, MaVe);
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
-                MaHoaDon=rs.getString(1);
+                MaHoaDon = rs.getString(1);
             }
             // show data  
             // close connection

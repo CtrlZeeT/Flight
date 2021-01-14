@@ -9,6 +9,8 @@ import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.time.LocalDateTime;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.DefaultCellEditor;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -22,8 +24,10 @@ import nmjava.flight.BLL.ThamSoBLL;
 import nmjava.flight.BLL.VeChuyenBayBLL;
 import nmjava.flight.DTO.HoaDon;
 import nmjava.flight.DTO.VeChuyenBay;
+import nmjava.flight.Utility.Mail;
 import nmjava.flight.Utility.Notification;
 import nmjava.flight.Utility.StringVerify;
+import org.apache.commons.mail.EmailException;
 
 /**
  *
@@ -42,7 +46,7 @@ public class BookTicketPanel extends javax.swing.JPanel {
     public BookTicketPanel() {
         bllHD = new HoaDonBLL();
         bllVCB = new VeChuyenBayBLL();
-        bllTS=new ThamSoBLL();
+        bllTS = new ThamSoBLL();
         initComponents();
         model = (DefaultTableModel) tableThongTinVe.getModel();
         setImage();
@@ -139,13 +143,13 @@ public class BookTicketPanel extends javax.swing.JPanel {
         lbGioHaCanh.setText(cb.ThoiGianDen);
         lbNgayHaCanh.setText(cb.NgayDen);
         String giatien = "";
-            String tmp = cb.GiaTien;
-            for (char ch : tmp.toCharArray()) {
-                if (ch >= '0' && ch <= '9') {
-                    giatien += ch;
-                }
+        String tmp = cb.GiaTien;
+        for (char ch : tmp.toCharArray()) {
+            if (ch >= '0' && ch <= '9') {
+                giatien += ch;
             }
-        lbGiaTien.setText(String.valueOf(Integer.parseInt(giatien)+bllTS.getTienLaiMoiVe())+" VND");
+        }
+        lbGiaTien.setText(String.valueOf(Integer.parseInt(giatien) + bllTS.getTienLaiMoiVe()) + " VND");
     }
 
     boolean CheckInput() {
@@ -626,6 +630,7 @@ public class BookTicketPanel extends javax.swing.JPanel {
             HD.TongTien = Double.parseDouble(lbTongTien.getText());
             HD.ThoiGianTao = ldt.toString();
             bllHD.InsertHoaDon(HD);
+            String ThongTinVe = "";
             for (int i = 0; i < tableThongTinVe.getRowCount(); i++) {
                 VeChuyenBay VCB = new VeChuyenBay();
                 VCB.MaChuyenBay = tableThongTinVe.getValueAt(i, 0).toString();
@@ -644,10 +649,20 @@ public class BookTicketPanel extends javax.swing.JPanel {
                 VCB.MaHoaDon = HD.MaHoaDon;
                 VCB.TrangThai = "Đã thanh toán";
                 bllVCB.InsertVeChuyenBay(VCB);
+                ThongTinVe += VCB.HoTen + "\n";
+                ThongTinVe += VCB.CMND + "\n";
+                ThongTinVe += VCB.SDT + "\n";
+                ThongTinVe += VCB.MaChuyenBay + "\n";
             }
+            ThongTinVe += "Tong tien la : ";
+            ThongTinVe += String.valueOf(HD.TongTien);
             Notification.show(lbNotify, "Xuất vé thành công", true);
             DefaultTableModel model = (DefaultTableModel) tableThongTinVe.getModel();
+            //Mail.send("Xac nhan dat cho", ThongTinVe, tableThongTinVe.getValueAt(0, 5).toString().trim());
+
             model.setRowCount(0);
+            lbTongTien.setText("0");
+
         }
     }//GEN-LAST:event_btn_XuatVeActionPerformed
 
