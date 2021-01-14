@@ -6,7 +6,9 @@
     <Property name="location" type="java.awt.Point" editor="org.netbeans.beaninfo.editors.PointEditor">
       <Point value="[0, 0]"/>
     </Property>
+
     <Property name="resizable" type="boolean" value="false"/>
+
   </Properties>
   <SyntheticProperties>
     <SyntheticProperty name="formSizePolicy" type="int" value="1"/>
@@ -32,7 +34,7 @@
               <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
               <Component id="pnFunction" max="32767" attributes="0"/>
           </Group>
-          <Component id="jPanel3" pref="1099" max="32767" attributes="0"/>
+          <Component id="jPanel3" pref="1300" max="32767" attributes="0"/>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
@@ -116,10 +118,10 @@
       <Layout>
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="1" attributes="0">
-              <Component id="btnSearch" max="32767" attributes="0"/>
-              <Component id="btnTicket" alignment="1" max="32767" attributes="0"/>
-              <Component id="btnStatistic" max="32767" attributes="0"/>
-              <Component id="btnRegulate" alignment="1" max="32767" attributes="0"/>
+              <Component id="btnSearch" min="-2" max="-2" attributes="0"/>
+              <Component id="btnTicket" alignment="1" min="-2" max="-2" attributes="0"/>
+              <Component id="btnStatistic" min="-2" max="-2" attributes="0"/>
+              <Component id="btnRegulate" alignment="1" min="-2" max="-2" attributes="0"/>
           </Group>
         </DimensionLayout>
         <DimensionLayout dim="1">
@@ -131,7 +133,7 @@
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="btnStatistic" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="btnRegulate" min="-2" max="-2" attributes="0"/>
+                  <Component id="btnRegulate" max="-2" attributes="0"/>
                   <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
               </Group>
           </Group>
@@ -147,6 +149,7 @@
           <Events>
             <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="btnTicketMouseClicked"/>
             <EventHandler event="mouseEntered" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="btnTicketMouseEntered"/>
+            <EventHandler event="mouseExited" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="btnTicketMouseExited"/>
           </Events>
 
           <Layout>
@@ -154,11 +157,11 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
                       <Component id="pnSelectTicket" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
                       <Component id="lbImageTicket" min="-2" pref="44" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
+                      <EmptySpace min="-2" max="-2" attributes="0"/>
                       <Component id="lbTicket" min="-2" pref="85" max="-2" attributes="0"/>
-                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                      <EmptySpace pref="119" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -168,8 +171,8 @@
                       <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="pnSelectTicket" max="32767" attributes="0"/>
-                          <Component id="lbImageTicket" max="32767" attributes="0"/>
-                          <Component id="lbTicket" alignment="0" pref="50" max="32767" attributes="0"/>
+                          <Component id="lbImageTicket" min="-2" pref="50" max="-2" attributes="0"/>
+                          <Component id="lbTicket" alignment="0" min="-2" pref="50" max="-2" attributes="0"/>
                       </Group>
                   </Group>
               </Group>
@@ -221,6 +224,7 @@
           <Events>
             <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="btnSearchMouseClicked"/>
             <EventHandler event="mouseEntered" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="btnSearchMouseEntered"/>
+            <EventHandler event="mouseExited" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="btnSearchMouseExited"/>
           </Events>
 
           <Layout>
@@ -230,20 +234,24 @@
                       <Component id="pnSelectSearch" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
                       <Component id="lbImageSearch" min="-2" pref="44" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
+                      <EmptySpace min="-2" max="-2" attributes="0"/>
                       <Component id="lbSearch" min="-2" pref="85" max="-2" attributes="0"/>
-                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                      <EmptySpace pref="119" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
             <DimensionLayout dim="1">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" alignment="1" attributes="0">
+                  <Group type="102" attributes="0">
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="lbSearch" alignment="0" min="-2" pref="50" max="-2" attributes="0"/>
+                          <Group type="103" alignment="0" groupAlignment="0" attributes="0">
+                              <Component id="pnSelectSearch" alignment="1" min="-2" max="-2" attributes="0"/>
+                              <Component id="lbImageSearch" alignment="1" min="-2" pref="50" max="-2" attributes="0"/>
+                          </Group>
+                      </Group>
                       <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                      <Component id="pnSelectSearch" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <Component id="lbImageSearch" alignment="1" max="32767" attributes="0"/>
-                  <Component id="lbSearch" alignment="0" max="32767" attributes="0"/>
               </Group>
             </DimensionLayout>
           </Layout>
@@ -293,6 +301,7 @@
           <Events>
             <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="btnStatisticMouseClicked"/>
             <EventHandler event="mouseEntered" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="btnStatisticMouseEntered"/>
+            <EventHandler event="mouseExited" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="btnStatisticMouseExited"/>
           </Events>
 
           <Layout>
@@ -300,22 +309,26 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
                       <Component id="pnSelectStatistic" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
                       <Component id="lbImageStatistic" min="-2" pref="44" max="-2" attributes="0"/>
-                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
                       <Component id="lbStatistic" min="-2" pref="85" max="-2" attributes="0"/>
-                      <EmptySpace min="0" pref="115" max="32767" attributes="0"/>
+                      <EmptySpace min="0" pref="119" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
             <DimensionLayout dim="1">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" alignment="1" attributes="0">
+                  <Group type="102" attributes="0">
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="lbStatistic" alignment="0" min="-2" pref="50" max="-2" attributes="0"/>
+                          <Group type="103" alignment="0" groupAlignment="0" attributes="0">
+                              <Component id="pnSelectStatistic" alignment="1" min="-2" max="-2" attributes="0"/>
+                              <Component id="lbImageStatistic" alignment="1" min="-2" pref="50" max="-2" attributes="0"/>
+                          </Group>
+                      </Group>
                       <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                      <Component id="pnSelectStatistic" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <Component id="lbImageStatistic" alignment="1" max="32767" attributes="0"/>
-                  <Component id="lbStatistic" alignment="0" max="32767" attributes="0"/>
               </Group>
             </DimensionLayout>
           </Layout>
@@ -362,9 +375,13 @@
               <Color blue="42" green="39" red="32" type="rgb"/>
             </Property>
           </Properties>
+          <AccessibilityProperties>
+            <Property name="AccessibleContext.accessibleName" type="java.lang.String" value=""/>
+          </AccessibilityProperties>
           <Events>
             <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="btnRegulateMouseClicked"/>
             <EventHandler event="mouseEntered" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="btnRegulateMouseEntered"/>
+            <EventHandler event="mouseExited" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="btnRegulateMouseExited"/>
           </Events>
 
           <Layout>
@@ -374,20 +391,24 @@
                       <Component id="pnSelectRegulate" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
                       <Component id="lbImageRegulate" min="-2" pref="44" max="-2" attributes="0"/>
-                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
                       <Component id="lbRegulate" min="-2" pref="85" max="-2" attributes="0"/>
-                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                      <EmptySpace min="0" pref="119" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
             <DimensionLayout dim="1">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" alignment="1" attributes="0">
+                  <Group type="102" attributes="0">
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="lbRegulate" alignment="0" min="-2" pref="50" max="-2" attributes="0"/>
+                          <Group type="103" alignment="0" groupAlignment="0" attributes="0">
+                              <Component id="pnSelectRegulate" alignment="1" min="-2" max="-2" attributes="0"/>
+                              <Component id="lbImageRegulate" alignment="1" min="-2" pref="50" max="-2" attributes="0"/>
+                          </Group>
+                      </Group>
                       <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                      <Component id="pnSelectRegulate" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <Component id="lbImageRegulate" alignment="1" max="32767" attributes="0"/>
-                  <Component id="lbRegulate" alignment="0" max="32767" attributes="0"/>
               </Group>
             </DimensionLayout>
           </Layout>
@@ -443,12 +464,12 @@
       <Layout>
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
-              <EmptySpace min="0" pref="826" max="32767" attributes="0"/>
+              <EmptySpace min="0" pref="1031" max="32767" attributes="0"/>
           </Group>
         </DimensionLayout>
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
-              <EmptySpace min="0" pref="629" max="32767" attributes="0"/>
+              <EmptySpace min="0" pref="701" max="32767" attributes="0"/>
           </Group>
         </DimensionLayout>
       </Layout>

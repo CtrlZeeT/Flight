@@ -22,7 +22,7 @@ public class ConnectSQLServer {
         Connection conn = null;
         try {
             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-            conn = DriverManager.getConnection(DB_URL);
+            conn = DriverManager.getConnection(DB_URL); 
             System.out.println("connect successfully!");
         } catch (Exception ex) {
             System.out.println("connect failure!");

@@ -10,7 +10,6 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
-import java.sql.Date;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -419,7 +418,7 @@ public class ReportPanel extends javax.swing.JPanel {
             TongSoVe += item.getSoVe();
             TongDoanhThu += item.getTongTien();
             TongTienLai += item.getTienLai();
-            model.addRow(new Object[]{item.getMaHoaDon(), item.getSoVe(), item.getTongTien(), item.getTienLai(), item.getThoiGianTao().toString()});
+            model.addRow(new Object[]{item.getMaHoaDon(),item.getSoVe(),item.getTongTien(), item.getTienLai(), item.getThoiGianTao().toString()});
         }
         lblTongSoVe.setText(String.valueOf(TongSoVe));
         lblTongDoanhThu.setText(String.valueOf(TongDoanhThu));

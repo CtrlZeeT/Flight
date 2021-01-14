@@ -12,18 +12,21 @@ import java.sql.Date;
  * @author Cuong
  */
 public class HoaDon {
-    String MaHoaDon;
-    int SoVe;
-    Date ThoiGianTao;
-    double TongTien;
-    double TienLai;
+    public String MaHoaDon;
+    public int SoVe;
+    public String ThoiGianTao;
+    public double TongTien;
+    public double TienLai;
 
-    public HoaDon(String MaHoaDon, int SoVe, double TongTien, double TienLai, Date ThoiGianTao) {
+    public HoaDon(String MaHoaDon, int SoVe, double TongTien, double TienLai, String ThoiGianTao) {
         this.MaHoaDon = MaHoaDon;
         this.ThoiGianTao = ThoiGianTao;
         this.TongTien = TongTien;
         this.TienLai = TienLai;
         this.SoVe = SoVe;
+    }
+
+    public HoaDon() {
     }
     
     
@@ -35,11 +38,11 @@ public class HoaDon {
         this.MaHoaDon = MaHoaDon;
     }
 
-    public Date getThoiGianTao() {
+    public String getThoiGianTao() {
         return ThoiGianTao;
     }
 
-    public void setThoiGianTao(Date ThoiGianTao) {
+    public void setThoiGianTao(String ThoiGianTao) {
         this.ThoiGianTao = ThoiGianTao;
     }
 

@@ -16,12 +16,26 @@ import nmjava.flight.DTO.HoaDon;
  * @author Cuong
  */
 public class HoaDonBLL {
+
     HoaDonDAL dalHoaDon;
+
     public HoaDonBLL() {
         dalHoaDon = new HoaDonDAL();
     }
-public ArrayList<HoaDon> getHoaDonWithMonthAndYear(String month, String year) {
+
+    public ArrayList<HoaDon> getHoaDonWithMonthAndYear(String month, String year) {
         return dalHoaDon.getHoaDonWithMonthAndYear(month, year);
     }
 
+    public boolean InsertHoaDon(HoaDon HD) {
+        return dalHoaDon.insertHoaDon(HD);
+    }
+
+    public String getMaHoaDon() {
+        return dalHoaDon.getMaHoaDon();
+    }
+
+    public boolean updateHoaDon(String MaHoaDon, int TienHuy) {
+        return dalHoaDon.updateHoaDon(MaHoaDon, TienHuy);
+    }
 }
